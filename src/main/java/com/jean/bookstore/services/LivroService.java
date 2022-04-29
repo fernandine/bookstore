@@ -27,9 +27,9 @@ public class LivroService {
 	}
 	
 	
-	public List<Livro> findAll(Integer id_cat){
-		categoriaService.findById(id_cat);
-		return repository.findAllByCategoria(id_cat);
+	public List<Livro> findAll(Integer idCat){
+		categoriaService.findById(idCat);
+		return repository.findAllByCategoria(idCat);
 	}
 	
 
@@ -41,14 +41,14 @@ public class LivroService {
 
 	private void updateData(Livro newObj, Livro obj) {
 		newObj.setTitulo(obj.getTitulo());
-		newObj.setNome_autor(obj.getNome_autor());
+		newObj.setNomeAutor(obj.getNomeAutor());
 		newObj.setTexto(obj.getTexto());		
 	}
 
 
-	public Livro create(Integer id_cat, Livro obj) {
+	public Livro create(Integer idCat, Livro obj) {
 		obj.setId(null);
-		Categoria cat = categoriaService.findById(id_cat);
+		Categoria cat = categoriaService.findById(idCat);
 		obj.setCategoria(cat);
 		return repository.save(obj);
 		
