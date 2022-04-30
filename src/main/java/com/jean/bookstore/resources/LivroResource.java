@@ -38,10 +38,11 @@ public class LivroResource {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<LivroDTO>> findAll(@RequestParam(value = "categoria", defaultValue = "0" ) Integer idCat){
+	public ResponseEntity<List<LivroDTO>> findAll
+	(@RequestParam(value = "categoria", defaultValue = "0" ) Integer idCat){
 
 		List<Livro> list = service.findAll(idCat);
-		List<LivroDTO> listDTO = list.stream().map(LivroDTO::new).collect(Collectors.toList());
+		List<LivroDTO> listDTO = list.stream().map(obj -> new LivroDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
 	@PostMapping
