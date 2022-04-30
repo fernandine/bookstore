@@ -38,16 +38,16 @@ public class LivroResource {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<LivroDTO>> findAll(@RequestParam(value = "categoria", defaultValue = "0" ) Integer id_cat){
+	public ResponseEntity<List<LivroDTO>> findAll(@RequestParam(value = "categoria", defaultValue = "0" ) Integer idCat){
 
-		List<Livro> list = service.findAll(id_cat);
-		List<LivroDTO> listDTO = list.stream().map(obj-> new LivroDTO(obj)).collect(Collectors.toList());
+		List<Livro> list = service.findAll(idCat);
+		List<LivroDTO> listDTO = list.stream().map(LivroDTO::new).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
 	@PostMapping
-	public ResponseEntity<Livro> create(@Valid @RequestParam(value = "categoria", defaultValue = "0") Integer id_cat,
+	public ResponseEntity<Livro> create(@Valid @RequestParam(value = "categoria", defaultValue = "0") Integer idCat,
 			@RequestBody Livro obj) {
-		Livro newObj = service.create(id_cat, obj);
+		Livro newObj = service.create(idCat, obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/livros/{id}").buildAndExpand(newObj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
